@@ -1,0 +1,28 @@
+{
+  "name": "api-crud-sql",
+  "version": "1.0.0",
+  "description": "Sistema de usuarios com banco de dados SQL e ORM Sequelize",
+  "main": "index.js",
+  "scripts": {
+    "dev": "nodemon src/server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/emersondp07/Api-node.git"
+  },
+  "author": "Emerson Dantas",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/emersondp07/Api-node/issues"
+  },
+  "homepage": "https://github.com/emersondp07/Api-node#readme",
+  "dependencies": {
+    "express": "^4.17.3",
+    "mysql2": "^2.3.3",
+    "sequelize": "^6.19.0"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.15",
+    "sequelize-cli": "^6.4.1"
+  }
+}
