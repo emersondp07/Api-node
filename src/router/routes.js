@@ -1,12 +1,13 @@
 const express = require('express');
+const axios = require('axios').default;
 
-const User = require('../model/User')
+const User = require('../model/User');
 
 const routes = express.Router();
 
 routes.post('/create', async (req, res) => {
     try{
-        const user = await User.create({...req.body, updatedAt: null});
+        const user = await User.create(req.body);
 
         return res.send({ user });
     } catch (err){

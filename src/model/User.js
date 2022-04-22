@@ -49,11 +49,12 @@ const User = db.define("users", {
     },
     updatedAt: {
         type: Sequelize.DATE,
+        allowNull: true,
     }
 });
 
-/*(async () => {
+(async () => {
   await User.sync({force: true});
-})();*/
+})();
 
 module.exports = User;
