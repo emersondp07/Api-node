@@ -7,8 +7,22 @@ const User = require('../model/User');
 const router = express.Router();
 
 router.post('/create', async (req, res) => {
+    const { zipcode } = req.body;
     try{
-        const user = await User.create(req.body);
+        const address = (await axios.get(`https://viacep.com.br/ws/${zipcode}/json/`)).data
+
+        const user = await User.create({ ...req.body = {
+            name: req.body.name, 
+            birthdate: req.body.birthdate, 
+            document: req.body.document, 
+            acceptedTerms: req.body.acceptedTerms,
+            accessCount: req.body.accessCount,
+            zipcode: req.body.zipcode,
+        }, street: address.logradouro,
+        neighbothood: address.bairro,
+        city: address.localidade,
+        state: address.uf,
+    });
 
         return res.send({ user });
     } catch (err){
