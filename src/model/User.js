@@ -13,7 +13,7 @@ const User = db.define("users", {
         allowNull: false,
     },
     birthdate: {
-        type: Sequelize.DATE,
+        type: Sequelize.DATEONLY,
         allowNull: false,
     },
     document: {
@@ -49,7 +49,6 @@ const User = db.define("users", {
     },
     updatedAt: {
         type: Sequelize.DATE,
-        allowNull: true,
     }
 });
 
