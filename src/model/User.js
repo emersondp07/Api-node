@@ -1,4 +1,4 @@
-const { Sequelize, Model, DataTypes } = require('sequelize');
+const { Sequelize } = require('sequelize');
 const db = require('../database/index');
 
 const User = db.define("users", {
@@ -13,7 +13,7 @@ const User = db.define("users", {
         allowNull: false,
     },
     birthdate: {
-        type: Sequelize.DATEONLY,
+        type: Sequelize.STRING,
         allowNull: false,
     },
     document: {
@@ -52,8 +52,8 @@ const User = db.define("users", {
     }
 });
 
-(async () => {
+/*(async () => {
   await User.sync({force: true});
-})();
+})();*/
 
 module.exports = User;

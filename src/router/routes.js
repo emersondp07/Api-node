@@ -1,86 +1,13 @@
-const { Router } = require('express');
 const express = require('express');
-const axios = require('axios').default;
-
-const User = require('../model/User');
+const userServices = require('../service/userServices');
 
 const router = express.Router();
 
-router.post('/create', async (req, res) => {
-    const { zipcode } = req.body;
-    try{
-        const address = (await axios.get(`https://viacep.com.br/ws/${zipcode}/json/`)).data
-
-        const user = await User.create({ ...req.body = {
-            name: req.body.name, 
-            birthdate: req.body.birthdate, 
-            document: req.body.document, 
-            acceptedTerms: req.body.acceptedTerms,
-            accessCount: req.body.accessCount,
-            zipcode: req.body.zipcode,
-        }, street: address.logradouro,
-        neighbothood: address.bairro,
-        city: address.localidade,
-        state: address.uf,
-    });
-
-        return res.send({ user });
-    } catch (err){
-        return res.status(400).send({ error: 'Registration failed' });
-    }
-});
-
-router.get('/findall', async (req, res) => {
-    try{
-        const usuarios = await User.findAll();
-
-        return res.json( usuarios );
-    } catch(err){
-        return res.status(400).send({ error: 'Error loading usuarios' })
-    }
-
-});
-
-router.get('/findbyid/:id', async (req, res) => {
-    try{
-        const usuario = await User.findByPk(req.params.id)
-
-        return res.send( usuario );
-    } catch(err){
-        return res.status(400).send({ error: 'Error loading usuario' })
-    }
-});
-
-router.put('/update/:id', async (req, res) => {
-    try{
-        const usuario = await User.findByPk(req.params.id)
-
-        usuario.name = req.body.name;
-        usuario.birthdate = req.body.birthdate; 
-        usuario.document = req.body.document;
-        usuario.acceptedTerms = req.body.acceptedTerms; 
-        usuario.accessCount = req.body.accessCount;
-
-        await usuario.save();
-
-        return res.json(usuario);
-
-    } catch(err){
-        return res.status(400).send({ error: 'Error loading usuario' })
-    }
-});
-
-router.delete('/delete/:id', async (req, res) => {
-    try{
-        const user = await User.findByPk(req.params.id);
-
-        await user.destroy();
-
-        return res.send('Deletado com sucesso');
-    } catch(err){
-        return res.status(400).send({ error: 'Error deleting Usuario' })
-    }
-});
+router.get("/findall", userServices.findAll);
+router.post("/create", userServices.create);
+router.get("/findbyid/:id", userServices.findById);
+router.put("/update/:id", userServices.updateUser);
+router.delete("/delete/:id", userServices.deleteUser);
 
 
 
